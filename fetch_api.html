@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch API</title>
+</head>
+
+<body>
+    <form>
+        <label for="username">
+            Username:
+            <input type="text" name="username" id="username">
+        </label>
+        <br>
+        <label for="password">
+            Password:
+            <input type="password" name="password" id="password">
+        </label>
+        <input type="button" value="Login" id="login">
+    </form>
+    <h1 id="contoh"></h1>
+    <script>
+        function doLogin() {
+
+            const request = new Request("https://hookb.in/9XxeBOg26ZTWKedWM9ab", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify({
+                    username: document.getElementById("username").value,
+                    password: document.getElementById("password").value
+                })
+            })
+            // Promise <Response>
+            const response = fetch(request);
+            response.then((response) => response.json())
+                .then(function (json) {
+                    document.getElementById("contoh").textContent = json.success;
+                })
+                .catch(function (error) {
+                    document.getElementById("response").textContent = error
+                })
+        }
+        document.getElementById("login").onclick = doLogin
+    </script>
+</body>
+
+</html>
